@@ -35,5 +35,6 @@ fun main() {
     val array = tree.serialize()
     println("Tree has been serialized: $array")
     println("Tree has been deserialized:")
-    println(tree.deserialize(array))
+//    println(tree.deserialize(array))
+    println(tree.deserializeOptimized(array))
 }
