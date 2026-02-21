@@ -1,3 +1,5 @@
+import kotlin.math.max
+
 typealias Visitor<T> = (T) -> Unit
 
 class BinaryNode<T : Any>(var value: T) {
@@ -57,9 +59,18 @@ class BinaryNode<T : Any>(var value: T) {
      * Recursively visits the left and right child.
      * Only visits the current node after the left and right child have been visited recursively.
      */
-    fun traversePostOrder(visitor: Visitor<T>){
+    fun traversePostOrder(visitor: Visitor<T>) {
         leftChild?.traversePostOrder(visitor)
         rightChild?.traversePostOrder(visitor)
         visitor(value)
     }
+
+    /**
+     * Challenge 1 -> Given a binary tree, find the height of the tree.
+     */
+    fun heightOfTheTree(node: BinaryNode<T>? = this): Int {
+        if (this.leftChild == null && this.rightChild == null) return 0
+        return node?.let { 1 + max(node.heightOfTheTree(node.leftChild), node.heightOfTheTree(node.rightChild)) } ?: -1
+    }
+
 }
