@@ -32,15 +32,34 @@ class BinaryNode<T : Any>(var value: T) {
         } ?: "$root null\n"
     }
 
+    /**
+     * If the current node has a left child, recursively visit this child first.
+     * Then visit the node itself.
+     * If the current node has a right child, recursively visit this child.
+     */
     fun traverseInOrder(visitor: Visitor<T>) {
         leftChild?.traverseInOrder(visitor)
         visitor(value)
         rightChild?.traverseInOrder(visitor)
     }
 
+    /**
+     * Visits the current node first.
+     * Recursively visits the left and right child.
+     */
     fun traversePreOrder(visitor: Visitor<T>) {
         visitor(value)
         leftChild?.traversePreOrder(visitor)
         rightChild?.traversePreOrder(visitor)
+    }
+
+    /**
+     * Recursively visits the left and right child.
+     * Only visits the current node after the left and right child have been visited recursively.
+     */
+    fun traversePostOrder(visitor: Visitor<T>){
+        leftChild?.traversePostOrder(visitor)
+        rightChild?.traversePostOrder(visitor)
+        visitor(value)
     }
 }
