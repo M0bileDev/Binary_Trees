@@ -30,7 +30,11 @@ class BinaryNode<T : Any>(var value: T) {
                         )
             }
         } ?: "$root null\n"
+    }
 
-
+    fun traverseInOrder(visit: Visitor<T>){
+        leftChild?.traverseInOrder(visit)
+        visit(value)
+        rightChild?.traverseInOrder(visit)
     }
 }
