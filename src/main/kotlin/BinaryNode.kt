@@ -32,9 +32,15 @@ class BinaryNode<T : Any>(var value: T) {
         } ?: "$root null\n"
     }
 
-    fun traverseInOrder(visit: Visitor<T>){
-        leftChild?.traverseInOrder(visit)
-        visit(value)
-        rightChild?.traverseInOrder(visit)
+    fun traverseInOrder(visitor: Visitor<T>) {
+        leftChild?.traverseInOrder(visitor)
+        visitor(value)
+        rightChild?.traverseInOrder(visitor)
+    }
+
+    fun traversePreOrder(visitor: Visitor<T>) {
+        visitor(value)
+        leftChild?.traversePreOrder(visitor)
+        rightChild?.traversePreOrder(visitor)
     }
 }
