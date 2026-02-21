@@ -14,4 +14,5 @@ fun main() {
 
     val tree = seven
     println(tree)
+    tree.traverseInOrder { println(it) }
 }
