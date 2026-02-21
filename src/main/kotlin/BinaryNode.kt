@@ -89,7 +89,7 @@ class BinaryNode<T : Any?>(var value: T) {
 
     fun deserialize(list: MutableList<T?>): BinaryNode<T?>? {
         // 1
-        val rootValue = list.removeFirst() ?: return null
+        val rootValue = list.removeLast() ?: return null
 
         // 2
         val root = BinaryNode<T?>(rootValue)
@@ -98,6 +98,10 @@ class BinaryNode<T : Any?>(var value: T) {
         root.rightChild = deserialize(list)
 
         return root
+    }
+
+    fun deserializeOptimized(list: MutableList<T?>): BinaryNode<T?>? {
+        return deserialize(list.asReversed())
     }
 
     //endregion
