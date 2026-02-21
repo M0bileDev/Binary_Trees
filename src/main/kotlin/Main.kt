@@ -5,12 +5,16 @@ fun main() {
     val seven = BinaryNode(7)
     val eight = BinaryNode(8)
     val nine = BinaryNode(9)
+    val ten = BinaryNode(10)
+    val eleven = BinaryNode(11)
 
     seven.leftChild = one
     seven.rightChild = nine
     nine.leftChild = eight
+    nine.rightChild = ten
     one.leftChild = zero
     one.rightChild = five
+    eight.leftChild = eleven
 
     val tree = seven
     println(tree)
@@ -20,4 +24,5 @@ fun main() {
     tree.traversePreOrder { println(it) }
     println("Tree has been traversed post order")
     tree.traversePostOrder { println(it) }
+    println("Tree has height of ${tree.heightOfTheTree()}")
 }
