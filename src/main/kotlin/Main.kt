@@ -13,4 +13,5 @@ fun main() {
     one.rightChild = five
 
     val tree = seven
+    println(tree)
 }
