@@ -1,8 +1,8 @@
 import kotlin.math.max
 
-typealias Visitor<T> = (T) -> Unit
+typealias Visitor<T> = (T?) -> Unit
 
-class BinaryNode<T : Any>(var value: T) {
+class BinaryNode<T : Any?>(var value: T) {
     var leftChild: BinaryNode<T>? = null
     var rightChild: BinaryNode<T>? = null
 
@@ -73,4 +73,32 @@ class BinaryNode<T : Any>(var value: T) {
         return node?.let { 1 + max(node.heightOfTheTree(node.leftChild), node.heightOfTheTree(node.rightChild)) } ?: -1
     }
 
+    //region Challenge2
+
+    fun traversePreOrderWithNull(visitor: Visitor<T>) {
+        visitor(value)
+        leftChild?.traversePreOrderWithNull(visitor) ?: visitor(null)
+        rightChild?.traversePreOrderWithNull(visitor) ?: visitor(null)
+    }
+
+    fun serialize(node: BinaryNode<T> = this): MutableList<T?> {
+        val list = mutableListOf<T?>()
+        node.traversePreOrderWithNull { list.add(it) }
+        return list
+    }
+
+    fun deserialize(list: MutableList<T?>): BinaryNode<T?>? {
+        // 1
+        val rootValue = list.removeFirst() ?: return null
+
+        // 2
+        val root = BinaryNode<T?>(rootValue)
+
+        root.leftChild = deserialize(list)
+        root.rightChild = deserialize(list)
+
+        return root
+    }
+
+    //endregion
 }
